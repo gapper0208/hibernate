@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-10 17:23:06 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.woniuxy.c_hbm.Car" table="CAR">
+        <id name="cid" type="java.lang.String">
+            <column name="CID" />
+            <generator class="uuid" />
+        </id>
+        <property name="brand" type="java.lang.String">
+            <column name="BRAND" />
+        </property>
+    </class>
+</hibernate-mapping>

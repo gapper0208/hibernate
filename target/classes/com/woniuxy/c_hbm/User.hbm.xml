@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 
+	hibnerate-mapping只有一个可以学习的属性: package
+	如果在hibnerate-mapping元素中指定了package，则在hibnerate-mapping之内，就不用再写类的全名了，而只写简单名字
+ -->
+<hibernate-mapping package="com.woniuxy.c_hbm">
+    <class name="User">
+    	<!-- 
+    		id元素，与property元素具有相同的语法规则
+    		但是id元素是专门用于做 主属性与主键列的映射的！
+    	 -->
+        <id name="id" >
+        	<!-- 
+        		generator元素，用于指定主键生成策略 :
+        		1. assigned 表示主键的值，必须通过程序来指定，不能省略主键
+        		2. foreign 现在讲不了，明天讲解基于外键的一对一时，再说！
+        		3. identity 表示主键自增长！  该选项要求主键必须是数字类型。
+        		4. increment 表示主键自增长！ 不是所有数据库管理系统都支持自增长的，该选项专门用于那些天生不支持自增长的数据库来模拟自增长！
+        				   该选项要求主键必须是数字类型。且有线程安全问题。
+        		5. hilo 表示高低位算法：
+        		
+        			公式：
+        				hi*(max_lo + 1) + lo
+        						
+        			其中，hi表示高位，lo表示低位，max_lo就是低位能取到的最大值。
+        			
+        			hi存放于foo表中的value列。max_lo是3
+        			
+        			当hi为0的时候，不走公式，而是直接得出结果：1
+        			
+        			当我们在调用s.save(user)时，hibernate框架就要准备好这几个值：hi lo max_lo， 才能用于公式当中！
+        			每次会话关闭后，或lo超过max_lo时，hi都会自增1.
+        			
+        			第一次：
+        				hibernate获取hi时，发现hi是0，就不走公式，而是直接得出结果1
+        				会话关闭了，还会让hi自增1
+        				
+        			第二次：
+        				hibernate获取hi时，发现hi是1，max_lo是3， lo是从0开始的
+        				1*(3 + 1) + 0 = 4
+        				会话关闭了，还会让hi自增1
+        				
+        			第三次：
+        				hibernate获取hi时，发现hi是2，max_lo是3， lo是从0开始的
+        				2*(3 + 1) + 0 = 8
+        				会话关闭了，还会让hi自增1
+        				
+        			第四次：
+        				hibernate获取hi时，发现hi是3，max_lo是3， lo是从0开始的
+        				3*(3 + 1) + 0 = 12
+        				会话关闭了，还会让hi自增1
+        				
+        				
+        			为什么lo一直是0呢？ 因为每次session关闭之后，再重新开启session，lo总是从0开始的！
+        			下面测试的就是在一次session打开和关闭之间，连续save了4次
+        			
+        			第一次：
+        				hibernate获取hi时，发现hi是0时，lo直接跳过0，lo直接从1开始
+        				0*(3 + 1) + 1 = 1
+        			第二次：
+        				hibernate获取hi时，发现hi是0，max_lo是3， lo是从2开始的
+        				0*(3 + 1) + 2 = 2  lo自增1
+        				
+        			第三次：
+        				hibernate获取hi时，发现hi是0，max_lo是3， lo是从3开始的
+        				0*(3 + 1) + 3 = 3  lo自增1 ， 此时lo自增为4了，已经超过max_lo了，所以hi加1， lo又成为0
+        				
+        			第四次：
+        				hibernate获取hi时，发现hi是3，max_lo是3， lo是从0开始的
+        				1*(3 + 1) + 0 = 4
+		            <generator class="hilo">
+		            	<param name="table">foo</param>
+		            	<param name="column">value</param>
+		            	<param name="max_lo">3</param>
+		            </generator>
+		            
+		            
+		        6. guid和uuid都是要求主键为字符串类型，它们都会生成唯一的字符串序列。
+		        
+		        7. native: 自动根据底层数据库的不同，而自动选择一个最合适的主键生成策略，mysql identity | oracle sequence
+		        
+        	-->
+        	<generator class="native" />
+        	
+        </id>
+    	<!-- 
+    		property元素，用于配置，类的属性到表中列的映射关系 
+    			name属性是必须写的，不能省略
+    			type属性是可以省略的，如果省略了，则hibernate可以通过反射机制自动获取到属性的类型。
+    			column属性，或者column子元素是可以省略的，如果省略，则对应的列名与属性名相同
+    			length属性，专门用于类型为string的属性，如果省略该属性，则默认为255.
+    	-->
+        <property name="name" /> 
+        <property name="birthday" />
+        <property name="money" />
+    </class>
+</hibernate-mapping>

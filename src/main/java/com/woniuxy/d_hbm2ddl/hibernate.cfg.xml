@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">123</property>
+        <property name="hibernate.connection.url">jdbc:mysql:///test</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        
+        
+        <!-- 
+        	我们已经知道 ，mysql中创建一张表的语法：
+        	
+        	create table 表名
+        	(
+        		列名 类型 约束，
+        		列名 类型 约束，
+        		列名 类型 约束，
+        		..
+        		列名 类型 约束
+        	);
+        	
+        	可以看出，创建一张表，需要指定：表名、列名、类型、约束。
+        	也就是说，只要知道了表名、列名、类型、约束。就可以利用建表语法来创建表了！
+        	
+        	sql: structure query language
+        		ddl: 数据定义语言， create drop alter change modify
+        		dql: 数据查询语言， select from order by group by union distinct having
+        		dml: 数据操纵语言，insert delete update 
+        		dcl: 数据控制语言，grant revoke
+        		tcl: 事务控制语言，begin commit rollback savepoint 
+        	
+        	
+        	hbm2ddl,其中hbm表示hibernate的子配置文件，2表示to，ddl表示数据定义语言
+        	也就是说，hibernate可以根据 hibernate子配置文件，来生成建表代码	！
+        	
+        	hibernate.hbm2ddl.auto就是用来配置hibernate如何根据hbm文件来自动建表的，有4种取值： (在sf.buildSessionFactory()时)
+        	1. create 总是会先删除旧表，再创建新表。
+        	2. update 如果表不存在则创建，如果表已经存在就不创建，如果hbm有变化就修改, 总之update绝对不会删除任何表！
+        	3. create-drop 
+        			      总是会先删除旧表，再创建新表。
+        			      与create不同的是，在关闭SessionFactory时，create-drop还会引起表的删除，而create不会。
+			4. validate 绝对不会创建任何表，也不会删除任何表，而是只做 校验，校验hbm所描述的表结构，与实际数据库中的表结构是否一致，如果不一致就报错！一致就不报错！		 
+         -->
+         
+         <property name="hibernate.hbm2ddl.auto">validate</property>
+        
+        
+        <mapping resource="com/woniuxy/d_hbm2ddl/User.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
