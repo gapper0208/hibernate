@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 16:20:58 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.j_many2many">
+	<class name="Student">
+		<id name="sid">
+			<generator class="native" />
+		</id>
+		<property name="sname" />
+		<set name="teachers" table="t_s" cascade="all" inverse="true">
+			<key column="student_id"></key>
+			<many-to-many column="teacher_id" class="Teacher" />
+		</set>
+	</class>
+</hibernate-mapping>

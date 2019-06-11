@@ -8,8 +8,6 @@
 			<generator class="native" />
 		</id>
 		<property name="dname" />
-		
-		
 		<!-- 
 			cascade级联操作：
 			1. save-update, 支持级联增加和级联修改
@@ -23,7 +21,6 @@
 			
 			inverse=true表示让本方放弃对关系的维护，也就是放弃修改外键的权利。
 			注意，多的一方无法放弃关系的维护，因为外键就在多的一方。	
-				
 		 -->
 		<set name="emps" table="emp" cascade="all" inverse="true">
 			<key column="dept_id" />

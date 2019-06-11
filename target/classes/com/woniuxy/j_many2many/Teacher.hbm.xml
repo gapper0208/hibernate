@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 16:20:58 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.j_many2many">
+	<class name="Teacher">
+		<id name="tid">
+			<generator class="native" />
+		</id>
+		<property name="tname" />
+		
+		
+		<!-- 
+			set出现，绝对代表另外一张表，问题是，现在这另外一张表，到底是student表还是t_s表
+			单看set元素本身，是无法确定它所代表的是哪个表（student或者t_s）
+			
+			到底set代表对方表student，还是代表关系表t_s,取决于：set元素与one-to-many搭配还是与many-to-many搭配。
+			如果set搭配one-to-many，则表示这是一对多的关系，则set代表对方表student
+			如果set搭配,many-to-many，则表示这是多对多的关系，则set代表关系表t_s
+		 -->
+		<set name="students" table="t_s" cascade="all" inverse="false">
+			<key column="teacher_id"></key>
+			<!-- 
+				many-to-many出现：
+				1. 与set搭配，表示set代表的表是t_s。
+				2.它还代表一个列，所以必须使用column属性指定列名
+				3.该列还是一个外键列，该外键列依赖哪个表的主键，由class属性决定
+				这里class="Student" 就表示，t_s(student_id) ===> student(sid)
+				4.class="Student"除了能指明student_id依赖与Student表的sid列以外，还能直接引用出Student.hbm.xml所描述的表结构
+			 -->
+			<many-to-many column="student_id" class="Student" />
+		</set>
+		
+		
+	</class>
+</hibernate-mapping>

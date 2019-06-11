@@ -124,7 +124,7 @@ public class AppTest3 {
 //		Emp e = s.get(Emp.class, 2);
 //		s.delete(e);
 		
-		Dept d = s.get(Dept.class, 3);
+		Dept d = s.get(Dept.class, 5);
 		s.delete(d);
 		
 		// ===============================================
