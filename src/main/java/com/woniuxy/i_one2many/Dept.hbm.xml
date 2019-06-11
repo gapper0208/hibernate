@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 12:07:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.i_one2many">
+	<class name="Dept">
+		<id name="did">
+			<generator class="native" />
+		</id>
+		<property name="dname" />
+		
+		<set name="emps" table="emp">
+			<key column="dept_id" />
+			<!-- 
+				one-to-many出现：
+				1  首先不带表一个列，所以它根本没有column属性
+				2 表示一个引用，要引出对方的hbm.xml配置，靠的就是class属性 (Emp ==> Emp.hbm.xml)
+			 -->
+			<one-to-many class="Emp" />
+		</set>
+		
+	</class>
+</hibernate-mapping>
