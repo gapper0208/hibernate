@@ -9,15 +9,30 @@
 		</id>
 		<property name="dname" />
 		
-		<set name="emps" table="emp">
+		
+		<!-- 
+			cascade级联操作：
+			1. save-update, 支持级联增加和级联修改
+			2. delete, 支持级联删除
+			3. all, 支持全部级联操作
+			
+			讨论
+				a. 级联操作应该只有1的一方使用，多的一方不要使用！ 
+				b. 在删除1的一方时，如果同时还要级联删除多的一方，在应该让一的一方不要设置外键为null
+			
+			
+			inverse=true表示让本方放弃对关系的维护，也就是放弃修改外键的权利。
+			注意，多的一方无法放弃关系的维护，因为外键就在多的一方。	
+				
+		 -->
+		<set name="emps" table="emp" cascade="all" inverse="true">
 			<key column="dept_id" />
-			<!-- 
-				one-to-many出现：
-				1  首先不带表一个列，所以它根本没有column属性
-				2 表示一个引用，要引出对方的hbm.xml配置，靠的就是class属性 (Emp ==> Emp.hbm.xml)
-			 -->
+				<!-- 
+					one-to-many出现：
+					1  首先不带表一个列，所以它根本没有column属性
+					2 表示一个引用，要引出对方的hbm.xml配置，靠的就是class属性 (Emp ==> Emp.hbm.xml)
+				 -->
 			<one-to-many class="Emp" />
 		</set>
-		
 	</class>
 </hibernate-mapping>

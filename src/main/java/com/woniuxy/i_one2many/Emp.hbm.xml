@@ -11,5 +11,15 @@
 		<property name="sal" />
 		<property name="hiredate" />
 		
+		<!-- 
+			many-to-one出现：
+			1. 首先代表一个列，所以必须使用column属性指定列名
+			2.该列还是一个外键列，且该外键列就在本方！该外键列还依赖于哪个表的哪个主键，取决于class属性。
+			 这里class="Dept"，所以该外键列会依赖于Dept.hbm.xml中描述的主键：emp(dept_id) ==>> dept(did)
+			3.class属性除了能指明外键所依赖的主键是谁，还能引用出对方的表结构信息，毕竟class="Dept"最终能找到Dept.hbm.xml 
+			
+			
+		 -->
+		<many-to-one name="dept" column="dept_id" class="Dept"></many-to-one>
 	</class>
 </hibernate-mapping>
