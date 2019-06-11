@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 10:19:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.f_list">
+	<class name="User">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="birthday" />
+		<property name="money" />
+		
+		<!-- 
+			list出现，一定代表另外一张表，该表是与user表平级的，所以必须使用table来指定这一张表的名字
+		 -->
+		<list name="addresses" table="address">
+			<!-- 
+				key出现：
+				1. 首先代表一个列，所以必须使用column属性来指定列名（不可省略）
+				2.该列还是一个外键列，该外键列会自动依赖于上面的id元素映射的列:  address(user_id) ==>> user(id)
+			 -->
+			<key  column="user_id" />
+			<!-- 
+				list-index出现
+				1. 首先代表一个列，所以必须使用column属性来指定列名（不可省略） 
+				2.该列存放List集合中元素的索引
+			 -->
+			<list-index column="index_"  />
+			<!-- 
+				element出现：
+				1.首先代表一个列，所以必须使用column属性来指定列名（不可省略）, type不能省略
+				2.该列的内容就是List集合中的元素！
+			 -->
+			<element column="address" type="string" />
+		</list>
+		
+	</class>
+    
+</hibernate-mapping>

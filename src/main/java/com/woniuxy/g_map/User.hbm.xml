@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 10:19:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.g_map">
+	<class name="User">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="birthday" />
+		<property name="money" />
+		
+		<!-- 
+			map出现，一定代表另外一张表，必须使用table属性设置表名
+		 -->
+		<map name="addresses" table="address">
+			<key column="user_id" />
+			<!-- 
+				map-key存放map中的键！
+			 -->
+			<map-key column="key_" type="string" />
+			<!-- 
+				element存放map中的值！
+			 -->
+			<element column="address" type="string" />
+		</map>
+		
+	</class>
+    
+</hibernate-mapping>

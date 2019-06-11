@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 10:19:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.h_sort">
+	<class name="User">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="birthday" />
+		<property name="money" />
+		
+		<!-- 
+			1.set集合映射时，set元素入库后，是没有经过排序的，我们为了让入库的数据能排序，就把HashSet改为TreeSet
+			2. 此时入库数据确实已经排序了，那么出库的数据呢？ 没有排序！！ 所以TreeSet只能保证入库的数据能排序，如何保证出库数据也能排序呢？ 需要使用sort
+			3.在使用了sort="natural"后，我们观察，查询address表的sql语句：
+				select
+			        addresses0_.user_id as user1_0_0_,
+			        addresses0_.address as address0_ 
+			    from
+			        address addresses0_ 
+			    where
+			        addresses0_.user_id=?
+			   发现压根就没有order by子句，说明数据库服务器并没有对数据进行排序，数据库服务器会把没有排序的数据发送给jvm，
+			   再由jvm接受到数据之后，在jvm内存中进行排序（买了一碗凉皮，汁子是分开的。）
+			   
+			4. 为了让数据库服务器直接对数据排序，就把sort替换为order-by="address asc"
+				 select
+			        addresses0_.user_id as user1_0_0_,
+			        addresses0_.address as address0_ 
+			    from
+			        address addresses0_ 
+			    where
+			        addresses0_.user_id=? 
+			    order by
+			        addresses0_.address asc
+			  发现有order by子句，说明是由数据库服务器排序好的，服务器会把已经排序好的数据交给jvm。jvm就不用在排序了
+			  （买了一碗凉皮，直接调好，会加不用再调了！）
+			  
+			  讨论：sort ，order-by如何抉择？
+			  	谁快用谁： order-by。
+		 -->
+		<set name="addresses" table="address" order-by="user_id, address desc">
+			<key column="user_id"  />
+			<element column="address" type="string" />
+		</set>
+	</class>
+    
+</hibernate-mapping>
