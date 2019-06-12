@@ -16,8 +16,8 @@ public class AppTest {
 		Wife w = new Wife();
 		w.setWname("»ÆÈØ");
 		
-		h.setWife(w);
-		s.save(h);  // h.getClass() --> Husband --> Husband.hbm.xml
+		w.setHusband(h);
+		s.save(w);
 		
 //		Wife w2 = new Wife();
 //		w2.setWname("×£Ó¢Ì¨");
@@ -43,14 +43,14 @@ public class AppTest {
 		s.beginTransaction();
 		// =======================================================
 		
-//		Wife w = s.get(Wife.class, 2);  // Wife.class --> Wife --> Wife.hbm.xml
+//		Wife w = s.get(Wife.class, 1);  // Wife.class --> Wife --> Wife.hbm.xml
 //		System.out.println(w);
 //		System.out.println(w.getHusband());
 		
 		
-//		Husband h = s.get(Husband.class,2);
-//		System.out.println(h);
-//		System.out.println(h.getWife());
+		Husband h = s.get(Husband.class,2);
+		System.out.println(h);
+		System.out.println(h.getWife());
 		
 		// =======================================================
 		s.getTransaction().commit();

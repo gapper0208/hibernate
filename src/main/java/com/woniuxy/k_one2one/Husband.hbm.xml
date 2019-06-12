@@ -8,7 +8,6 @@
 			<generator class="native" />
 		</id>
 		<property name="hname" />
-	
 		<!-- 
 			one-to-one出现
 			1.首先不代表任何列，所以它根本没有column属性
@@ -16,7 +15,12 @@
 			3.写出one-to-one的价值，仅仅在于它可以做级联操作。
 			  只要写出one-to-one元素，那就可以直接有级联查询功能
 			4.注意，one-to-one不会维护关系，也就说不会管外键！
+			
+			one-to-one虽然天生有级联查询功能，但是，这个级联查询生成的sql语句，是使用2个表的主键在比较，
+			因为这仅仅是为了符合基于主键的一对一。  可以实现是基于外键的一对一。
+			
+			此时只需要，轻轻地加一个属性：property-ref ,该属性指明哪个列，就会拿着本方的主键，与对方的列比较
 		 -->
-		<one-to-one name="wife" class="Wife" cascade="all" />
+		<one-to-one name="wife" class="Wife" cascade="all" property-ref="husband" />
 	</class>
 </hibernate-mapping>
