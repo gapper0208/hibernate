@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-12 12:05:36 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.k_one2one">
+	<class name="Husband">
+		<id name="hid">
+			<generator class="native" />
+		</id>
+		<property name="hname" />
+	
+		<!-- 
+			one-to-one出现
+			1.首先不代表任何列，所以它根本没有column属性
+			2.写出one-to-one还可以引出对应的表结构，通过class引
+			3.写出one-to-one的价值，仅仅在于它可以做级联操作。
+			  只要写出one-to-one元素，那就可以直接有级联查询功能
+			4.注意，one-to-one不会维护关系，也就说不会管外键！
+		 -->
+		<one-to-one name="wife" class="Wife" cascade="all" />
+	</class>
+</hibernate-mapping>

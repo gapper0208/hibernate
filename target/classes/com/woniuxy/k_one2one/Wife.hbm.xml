@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-12 12:05:36 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.k_one2one">
+	<class name="Wife">
+		<id name="wid">
+			<generator class="native" />
+		</id>
+		<property name="wname" />
+		
+		<!-- 
+			many-to-one出现：
+			1. 表示一个列
+			2.而且还是一个外键列，该外键依赖于class属性所指定的对方的主键
+			这里class="Husband" 就能找到Husband.hbm.xml：  wife(husband_id) ===> husband(hid)
+			3.class="Husband"还能引出对方表的表结构
+		 -->
+		<many-to-one name="husband" column="husband_id" class="Husband" cascade="all" unique="true" />
+		
+	</class>
+</hibernate-mapping>
