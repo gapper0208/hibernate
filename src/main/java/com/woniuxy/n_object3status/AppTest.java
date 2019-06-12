@@ -34,7 +34,10 @@ public class AppTest {
 		// =======================================================
 
 		User user = s.get(User.class, 4);
-		user.setName("qwerty");
+		user.setName("qqq");
+		user.setName("xxx");
+		user.setName("yyy");
+		user.setName("abc");
 		
 		
 		// =======================================================

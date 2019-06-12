@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">123</property>
+        <property name="hibernate.connection.url">jdbc:mysql:///test</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        
+        <property name="show_sql">true</property>
+        <property name="format_sql">false</property>
+        
+        <property name="hbm2ddl.auto">update</property>
+        
+        <!-- 
+        	hibernate设置事务隔离级别:
+        	1. set transaction isolation level read uncommittd;
+        	2. set transaction isolation level read committd;
+        	4. set transaction isolation level repeatable read;
+        	8. set transaction isolation level serializable;
+         -->
+         <property name="connection.isolation">2</property>
+        
+        <mapping resource="com/woniuxy/o_onelevelcache/User.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
