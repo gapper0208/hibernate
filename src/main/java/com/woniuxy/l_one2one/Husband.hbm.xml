@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-12 12:05:36 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.l_one2one">
+	<class name="Husband">
+		<id name="hid">
+			<generator class="native" />
+		</id>
+		<property name="hname" />
+	</class>
+</hibernate-mapping>

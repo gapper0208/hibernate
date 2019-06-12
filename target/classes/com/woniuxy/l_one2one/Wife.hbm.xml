@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-12 12:05:36 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.l_one2one">
+	<class name="Wife">
+		<id name="wid">
+			<!-- foreign主键生成策略，表示，该表的主键不再是自增长出来的了，而是从主表的主键拿过来 -->
+			<generator class="foreign">
+				<!-- 这里指明去哪里拿 -->
+				<param name="property">husband</param>
+			</generator>
+		</id>
+		<property name="wname" />
+		
+		<!-- 
+			one-to-one出现：
+			1. 不代表任何列，所有没有column属性
+			2.one-to-one的作用是
+				可以引出对方表
+				可以天生自己级联查询功能
+			3.只要为one-to-one加上constrained="true"属性，就会把本方的主键，还作为一个外键
+			该外键就会依赖于class属性指定的对方的id。
+		 -->
+		<one-to-one name="husband" class="Husband" cascade="all" constrained="true"></one-to-one>
+		
+	</class>
+</hibernate-mapping>
