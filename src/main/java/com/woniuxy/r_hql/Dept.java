@@ -1,10 +1,10 @@
-package com.woniuxy.p_lazy;
+package com.woniuxy.r_hql;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Dept implements Serializable {
+public final class Dept implements Serializable {
 	private Integer did;
 	private String dname;
 	private Set<Emp> emps = new HashSet<>();

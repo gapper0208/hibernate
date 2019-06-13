@@ -19,7 +19,11 @@ import org.junit.Test;
 			但是在获取不到对象时，仍然会抛出ObjectNotFoundException
 	1. 在Dept.hbm.xml中的class元素中，添加lazy="false"
 	2. load获取到的代理对象，其实是目标类的子类。 所以禁用load延迟加载的第二种方式就是，给Dept类前面加上final关键字即可！
-	
+
+
+注意
+	无论是类级别还是属性级别的延迟加载，在session关闭之后，无法延迟加载！
+	一级缓存清空之后，还能不能延迟加载？ 不能！！
 */
 
 
@@ -35,11 +39,23 @@ public class AppTest {
 		s.beginTransaction();
 		// ===============================================
 		
-		Dept d = s.load(Dept.class, 1);
+		Dept d = s.get(Dept.class, 1);
+		
+		s.clear();
+		
+		System.out.println(d.getEmps());
+		
+
 		// ===============================================
 		s.getTransaction().commit();
+		
 		s.close();
 		
+		
+		
+		
+		
+	
 	}
 	
 }
