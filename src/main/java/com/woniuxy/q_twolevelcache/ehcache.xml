@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <diskStore path="d:\\tempDirectory"/>
+
+
+	<!-- 默认缓存侧露 -->
+	<!--  maxElementsInMemory 内存中最多缓存10000个对象 --> 
+	<!--  eternal=false，表示缓存中所缓存的对象，会过期 -->
+	<!--  timeToIdleSeconds，TTI 表示缓存中对象的最大闲置时间，单位是秒-->
+	<!--  timeToLiveSeconds，TTL 表示缓存中对象的最大寿命，单位是秒-->
+	<!--  overflowToDisk，表示缓存中的对象如果存满了，则会存到硬盘上，存到硬盘的哪里，由上面的diskStore指定 -->    
+    <defaultCache
+        maxElementsInMemory="10000"     
+        eternal="false"
+        timeToIdleSeconds="5"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"
+        />
+</ehcache>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">123</property>
+        <property name="hibernate.connection.url">jdbc:mysql:///test</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        
+        
+        <!--开启二级缓存-->
+		<property name="cache.use_second_level_cache">true</property>
+		<!-- 指定实现二级缓存的类 -->
+		<property name="cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
+		<!-- hibernate4.0之后还需要额外指定工厂 -->
+		<property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		
+		<!-- 指定ehcache配置文件的路径 -->
+		<property name="cache.provider_configuration_file_resource_path">com/woniuxy/q_twolevelcache/ehcache.xml</property>
+        
+        
+        <mapping resource="com/woniuxy/q_twolevelcache/User.hbm.xml"/>
+        
+        <!-- 二级缓存开启之后，还要手动指定二级缓存去缓存哪个类的对象 -->
+        <class-cache usage="read-only" class="com.woniuxy.q_twolevelcache.User"/>
+    </session-factory>
+</hibernate-configuration>

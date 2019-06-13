@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.woniuxy.q_twolevelcache">
+    <class name="User">
+        <id name="id" >
+        	<generator class="native" />
+        </id>
+        <property name="name" column="name" /> 
+        <property name="birthday" />
+        <property name="money" />
+    </class>
+</hibernate-mapping>
