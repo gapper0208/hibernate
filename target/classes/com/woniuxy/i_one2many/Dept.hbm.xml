@@ -18,9 +18,11 @@
 				a. 级联操作应该只有1的一方使用，多的一方不要使用！ 
 				b. 在删除1的一方时，如果同时还要级联删除多的一方，在应该让一的一方不要设置外键为null
 			
-			
 			inverse=true表示让本方放弃对关系的维护，也就是放弃修改外键的权利。
 			注意，多的一方无法放弃关系的维护，因为外键就在多的一方。	
+			
+			inverse控制本方是否维护关系，所谓的关系的维护，就是指，对外键的值的修改： 给外键一个值，把外键的值修改了，把外键改成null。 
+			cascade控制本方是否级联操作对方，也就是对本方进行save时，也会对对方save，对本方delete时，也会对对方delete。  get本方时，也会get对方
 		 -->
 		<set name="emps" table="emp" cascade="all" inverse="true">
 			<key column="dept_id" />
@@ -33,3 +35,4 @@
 		</set>
 	</class>
 </hibernate-mapping>
+
