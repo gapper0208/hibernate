@@ -9,6 +9,24 @@ public class Emp implements Serializable {
 	private Double sal;
 	private Date hiredate;
 	private Dept dept;
+	
+	public Emp() {
+	}
+	
+	public Emp(Integer eid, String ename) {
+		this.eid = eid;
+		this.ename = ename;
+	}
+
+	
+
+
+	public Emp(Integer eid, String ename, Double sal) {
+		this.eid = eid;
+		this.ename = ename;
+		this.sal = sal;
+	}
+
 	public Integer getEid() {
 		return eid;
 	}

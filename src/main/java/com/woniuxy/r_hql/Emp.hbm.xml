@@ -10,5 +10,6 @@
 		<property name="ename" />
 		<property name="sal" />
 		<property name="hiredate" />
+		<many-to-one name="dept" class="Dept" column="dept_id" />
 	</class>
 </hibernate-mapping>
