@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-6-11 12:07:11 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping package="com.woniuxy.r_hql">
-	<class name="Dept" lazy="true">
+	<class name="Dept">
 		<id name="did">
 			<generator class="native" />
 		</id>

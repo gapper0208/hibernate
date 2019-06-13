@@ -246,6 +246,45 @@ public class AppTest {
 		
 		
 		// 11. 连接查询： 内连接，左外连接、右外连接、 迫切内连接、迫切左外连接（没有迫切右外连接）
+//		String hql = "FROM Emp e JOIN e.dept";
+//		Query q = s.createQuery(hql);
+//		List<Object[]> list = q.list();
+//		for (Object[] arr: list) {
+//			System.out.println("==================================");
+//			System.out.println(Arrays.toString(arr));
+//		}
+		
+		
+//		String hql = "FROM Emp e LEFT JOIN e.dept";
+//		Query q = s.createQuery(hql);
+//		List<Object[]> list = q.list();
+//		for (Object[] arr: list) {
+//			System.out.println("==================================");
+//			System.out.println(Arrays.toString(arr));
+//		}
+		
+		// 迫切内连接，保证句子还是内连接的句子，意思是只发一次sql语句。
+		// 与内连接是，迫切内连接查询出的结果是Emp对象， 内连接查询出的结果是数组。
+//		String hql = "FROM Emp e JOIN FETCH e.dept";
+//		Query q = s.createQuery(hql);
+//		List<Emp> list = q.list();
+//		for (Emp emp : list) {
+//			System.out.println(emp);
+//			System.out.println(emp.getDept());
+//		}
+		
+		// 左外连接获取的结果是数组， 迫切左外连接获取的结果是对象。
+		// hql不受延迟加载的影响。
+//		String hql = "FROM Emp e LEFT JOIN FETCH e.dept";
+//		Query q = s.createQuery(hql);
+//		List<Emp> list = q.list();
+//		for (Emp emp : list) {
+//			System.out.println(emp);
+//			System.out.println(emp.getDept());
+//		}
+		
+		// 没有迫切右外连接。
+		
 		
 		
 		// ===============================================

@@ -10,6 +10,6 @@
 		<property name="ename" />
 		<property name="sal" />
 		<property name="hiredate" />
-		<many-to-one name="dept" class="Dept" column="dept_id" />
+		<many-to-one name="dept" class="Dept" column="dept_id" lazy="proxy" />
 	</class>
 </hibernate-mapping>
