@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 12:07:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.p_lazy">
+	<class name="Dept" lazy="true">
+		<id name="did">
+			<generator class="native" />
+		</id>
+		<property name="dname" />
+		<!-- 
+			set元素的lazy属性，用于控制属性级别的延迟加载策略
+			1. false 表示禁用属性级别的延迟加载
+			2. true 表示开启属性级别的延迟加载
+			3. extra 表示开启属性级别的延迟加载
+				extra与true的区别，只有在d.getEmps().size()时，才表现出不同
+					true：	select * from emp;
+					extra:	select count(*) from emp;
+		 -->
+		<set name="emps" table="emp" cascade="all" lazy="false">
+			<key column="dept_id" />
+			<one-to-many class="Emp" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-6-11 12:07:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.woniuxy.p_lazy">
+	<class name="Emp">
+		<id name="eid">
+			<generator class="native" />
+		</id>
+		<property name="ename" />
+		<property name="sal" />
+		<property name="hiredate" />
+	</class>
+</hibernate-mapping>
