@@ -285,6 +285,107 @@ public class AppTest {
 		
 		// 没有迫切右外连接。
 		
+		// 12. 在hql中使用占位符
+//		String hql = "FROM Emp WHERE ename = ?0";
+//		Query q = s.createQuery(hql);
+//		q.setParameter(0, "刘建国");
+//		List<Emp> list = q.list();
+//		for (Emp emp : list) {
+//			System.out.println(emp);
+//			System.out.println(emp.getDept());
+//		}
+		
+//		String hql = "FROM Emp WHERE ename = :zz";
+//		Query q = s.createQuery(hql);
+//		q.setParameter("zz", "刘建国");
+//		List<Emp> list = q.list();
+//		for (Emp emp : list) {
+//			System.out.println(emp);
+//			System.out.println(emp.getDept());
+//		}
+		
+		
+		// 13. hql中，一个要注意的点
+		// 在hql中，查询一的一方时，不会自动查询出多的一方。
+//		String hql = "FROM Dept";
+//		Query q = s.createQuery(hql);
+//		List<Dept> list = q.list();
+//		for (Dept dept : list) {
+//			System.out.println("===============================");
+//			System.out.println(dept);
+//		}
+		
+		
+		//对比上面： 在hql中，查询多的一方时，会自动查询出一的一方。
+//		String hql = "FROM Emp";
+//		Query q = s.createQuery(hql);
+//		List<Emp> list = q.list();
+//		for (Emp e : list) {
+//			System.out.println("===============================");
+//			System.out.println(e);
+//		}
+		
+		
+		// 14. hql N+1问题
+		// 在hql中获取1的1放时，不会自动获取多的一方
+		// 知道通过1的一方，导航出多的一方时，才引起查询多方一方的sql语句的发送。
+		// 这样，如果有10个部门，则一共会发11条语句！ 这样降低了读写速度！
+		// 为了解决这个问题，我们需要这样做： fectch="subslect" 或者 "batch-size"
+//		String hql = "FROM Dept";
+//		Query q = s.createQuery(hql);
+//		List<Dept> list = q.list();
+//		for (Dept dept : list) {
+//			System.out.println("===============================");
+//			System.out.println(dept);
+//			System.out.println(dept.getEmps());
+//		}
+		
+		// 15. hql会不会从一级缓存中去数据？ 不会！！
+//		Dept dept = s.get(Dept.class, 1);
+//		System.out.println("=======================================");
+//		String hql = "FROM Dept WHERE did = 1";
+//		Query q = s.createQuery(hql);		
+//		Dept d = (Dept) q.uniqueResult();
+//		System.out.println(d);
+		
+		// 16. hql查询会不会向一级缓存中缓存数据! 会!
+//		String hql = "FROM Dept WHERE did = 1";
+//		Query q = s.createQuery(hql);		
+//		Dept d = (Dept) q.uniqueResult();
+//		System.out.println("=======================================");
+//		Dept dept = s.get(Dept.class, 1);
+//		System.out.println(d == dept);
+		
+		// 17. hql名字叫做hibernate查询语句，但不意味着它只能做查询，hql还能做修改、删除，没有增加！！！
+//		String hql = "UPDATE Emp SET ename = ?0 WHERE eid = ?1";
+//		Query q = s.createQuery(hql);
+//		q.setParameter(0, "吕布");
+//		q.setParameter(1, 15);
+//		q.executeUpdate();
+		
+//		String hql = "DELETE FROM Emp WHERE eid = :eid";
+//		Query q = s.createQuery(hql);
+//		q.setParameter("eid", 24);
+//		q.executeUpdate();
+		
+		// 18. 我们已经知道，一级缓存是可以被清空的： session.clear() close() evict()
+		// 在hql中，执行了update和delete之后，一级缓存数据还在！！！（对比mybatis） 
+		// 但是update会直接操作数据库，一级缓存数据没变！！
+		
+		String hql = "FROM Dept WHERE did = 1";
+		Query q = s.createQuery(hql);		
+		Dept d = (Dept) q.uniqueResult();
+		System.out.println(d);
+		
+		hql = "UPDATE Dept SET dname = ?0 WHERE did = ?1";
+		q = s.createQuery(hql);
+		q.setParameter(0, "哈哈啊");
+		q.setParameter(1, 1);
+		q.executeUpdate();
+		
+		System.out.println("=======================================");
+		Dept dept = s.get(Dept.class, 1);
+		System.out.println(dept);
 		
 		
 		// ===============================================
